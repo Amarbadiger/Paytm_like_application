@@ -4,7 +4,7 @@ const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(403).json({});
+    return res.status(403).json({ message: "The auth token is not Found" });
   }
 
   const token = authHeader.split(" ")[1];
@@ -18,3 +18,5 @@ const authMiddleware = async (req, res, next) => {
     return res.status(403).json(error);
   }
 };
+
+module.exports = { authMiddleware };

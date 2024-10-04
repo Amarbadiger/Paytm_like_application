@@ -1,12 +1,18 @@
 const express = require("express");
-const { basic, signUp, singin } = require("../controllers/userCtrl");
-
+const {
+  signUp,
+  singin,
+  updateProfile,
+  getuser,
+} = require("../controllers/userCtrl");
+const { authMiddleware } = require("../middleware/authMiddleware");
 const router = express.Router();
-
-router.get("/", basic);
 
 router.post("/user/signup", signUp);
 
 router.post("/user/signin", singin);
 
+router.put("/user/", authMiddleware, updateProfile);
+
+router.get("/bulk", getuser);
 module.exports = router;
