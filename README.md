@@ -1,6 +1,11 @@
 # Project Title
 
-A brief description of what the project does, its key features, and the purpose.
+Paytm_like_application
+
+- Update User Profile
+- Show balance
+- payment Transaction
+- Search users using firstname and lastname
 
 ## Table of Contents
 
@@ -15,15 +20,12 @@ A brief description of what the project does, its key features, and the purpose.
 
 ## Overview
 
-Describe the project in a few sentences. Highlight key features, such as:
+Paymt-Like-application
 
 - User Authentication
 - Data Management (CRUD operations)
-- Role-based access (if applicable)
 
 ## Technologies Used
-
-List the key technologies and frameworks used in the project.
 
 ### Backend:
 
@@ -34,8 +36,8 @@ List the key technologies and frameworks used in the project.
 
 ### Frontend:
 
-- **React.js** (or any other framework, e.g., Vue.js, Angular)
-- **Ant Design/Bootstrap** for UI components (if used)
+- **React.js**
+- **TailwindCss**
 - **Axios** for API requests
 
 ## Setup Instructions
@@ -95,20 +97,16 @@ List the key technologies and frameworks used in the project.
 
 4. **Run the frontend app:**
    ```bash
-   npm start
+   npm run dev
    ```
    The frontend should be running on `http://localhost:3000`.
 
 ## API Endpoints
 
-List some common API endpoints that the backend provides.
-
-### Example:
-
 #### User Authentication
 
-- **POST** `/api/auth/signup` - Register a new user
-- **POST** `/api/auth/login` - Login user
+- **POST** `/api/v1/user/signup` - Register a new user
+- **POST** `/api/v1/user/login` - Login user
 
 #### CRUD Operations
 
