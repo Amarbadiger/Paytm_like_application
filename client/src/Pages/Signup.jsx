@@ -24,6 +24,7 @@ const Signup = () => {
         password,
       });
       if (res.status >= 200 && res.status < 300) {
+        localStorage.setItem("accessToken", res.data.token);
         message.success(res.data.message);
         navigate("/dashboard");
       }

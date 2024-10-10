@@ -4,16 +4,20 @@ const z = require("zod");
 const getBalance = async (req, res) => {
   try {
     const userId = req.userId;
-    const userbal = await Account.findOne({ userId: userId });
-
+    const userbal = await Account.findOne({ userId: userId })
+      .populate("userId", "firstname username")
+      .exec();
     if (!userbal) {
       return res
         .status(411)
         .json({ message: "Error while fetching the balance" });
     }
-    res
-      .status(200)
-      .json({ message: "The balance fetched", balance: userbal.balance });
+    res.status(200).json({
+      message: "The balance fetched",
+      balance: userbal.balance,
+      firstname: userbal.userId.firstname,
+      username: userbal.userId.username,
+    });
   } catch (error) {
     console.log(error);
     return res

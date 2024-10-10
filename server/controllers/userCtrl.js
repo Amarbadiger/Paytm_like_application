@@ -108,7 +108,7 @@ const updateProfile = async (req, res) => {
 const getuser = async (req, res) => {
   try {
     const filter = req.query.filter || "";
-    const users = await find({
+    const users = await userModel.find({
       $or: [
         {
           firstname: {
