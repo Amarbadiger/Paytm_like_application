@@ -3,14 +3,17 @@ const dotenv = require("dotenv");
 const dbConnect = require("./db");
 const user = require("./routes/user.js");
 const account = require("./routes/account.js");
+const cors = require("cors");
 // Initialize express app
 const app = express();
-
 // Load environment variables from .env file
 dotenv.config();
 
 // Connect to MongoDB database
 dbConnect();
+
+//cors
+app.use(cors());
 
 // Middleware to parse incoming JSON requests
 app.use(express.json());
