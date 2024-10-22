@@ -110,19 +110,13 @@ const getuser = async (req, res) => {
     const filter = req.query.filter || "";
     const users = await userModel.find({
       $or: [
-        {
-          firstname: {
-            $regex: filter,
-          },
-          lastname: {
-            $regex: filter,
-          },
-        },
+        { firstname: { $regex: filter, $options: "i" } }, // Case-insensitive search
+        { lastname: { $regex: filter, $options: "i" } },
       ],
     });
 
-    if (!users) {
-      return res.status(411).json({ message: "not Found" });
+    if (users.length === 0) {
+      return res.status(404).json({ message: "No users found" });
     }
 
     res.json({
@@ -130,12 +124,36 @@ const getuser = async (req, res) => {
         username: user.username,
         firstname: user.firstname,
         lastname: user.lastname,
+        id: user._id,
       })),
     });
   } catch (error) {
     console.log(error);
-    return res.status(411).json({ message: "Error while fetching data" });
+    return res.status(500).json({ message: "Error while fetching data" });
   }
 };
 
-module.exports = { signUp, singin, updateProfile, getuser };
+const getsingleuser = async (req, res) => {
+  const { id } = req.params; // Assumes the ID comes from the query params
+  try {
+    // Find the user by ID (you might need to change this to match your schema, e.g. _id)
+    const user = await userModel.findOne({ _id: id });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Return user data if found
+    res.status(200).json({
+      username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
+    });
+  } catch (error) {
+    // Handle errors, such as invalid ID format or database issues
+    console.log(error);
+    return res.status(500).json({ message: "Error fetching user data" });
+  }
+};
+
+module.exports = { signUp, singin, updateProfile, getuser, getsingleuser };

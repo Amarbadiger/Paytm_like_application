@@ -6,8 +6,10 @@ import axios from "axios";
 import { message } from "antd";
 
 const Dashboard = () => {
-  const [balance, setbalance] = useState();
-  const [name, setname] = useState();
+  const [balance, setBalance] = useState(0);
+  const [name, setName] = useState("");
+  const [filter, setFilter] = useState("");
+  const [users, setUsers] = useState([]);
   const getBalance = async () => {
     try {
       const token = localStorage.getItem("accessToken");
@@ -20,8 +22,21 @@ const Dashboard = () => {
         }
       );
       if (res.status >= 200 && res.status < 300) {
-        setbalance(res.data.balance);
-        setname(res.data.firstname);
+        setBalance(res.data.balance);
+        setName(res.data.firstname);
+      }
+    } catch (error) {
+      message.error(error.response.data.message);
+    }
+  };
+
+  const handleSearch = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:4000/api/v1/bulk?filter=" + filter
+      );
+      if (res.data && res.data.user) {
+        setUsers(res.data.user); // Save all users if available
       }
     } catch (error) {
       message.error(error.response.data.message);
@@ -30,20 +45,26 @@ const Dashboard = () => {
 
   useEffect(() => {
     getBalance();
-  }, []);
+    handleSearch();
+  }, [filter]);
 
   return (
     <section className="w-full h-[100vh] flex flex-col">
       <Appbar user={name ? name.toUpperCase() : "XYZ"} />
-      <Balance bal={balance ? balance.toFixed(2) : 0.0} />
+      <Balance bal={balance.toFixed(2)} />
       <input
         type="text"
-        name=""
-        id=""
         placeholder="Search users"
+        onChange={(e) => setFilter(e.target.value)}
         className="border-2 border-grey-800 p-2 m-5 mx-12 rounded-lg"
       />
-      <User name={"Amar"} />
+      {users.length > 0 ? (
+        users.map((user, index) => (
+          <User key={index} name={user.username} id={user.id} />
+        ))
+      ) : (
+        <p>No users found</p>
+      )}
     </section>
   );
 };

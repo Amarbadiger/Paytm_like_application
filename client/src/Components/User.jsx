@@ -1,10 +1,10 @@
 import React from "react";
 import profile from "../assets/profile.webp";
 import { useNavigate } from "react-router-dom";
-const User = ({ name }) => {
+const User = ({ name, id }) => {
   const navigate = useNavigate();
   const handlesubmit = () => {
-    navigate("/send");
+    navigate(`/send/:${id}`);
   };
   return (
     <div className="flex justify-between px-14 pt-5">

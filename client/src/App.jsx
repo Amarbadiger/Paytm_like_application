@@ -36,7 +36,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="/send" element={<Send />} />
+          <Route path="/send/:id" element={<Send />} />
         </Routes>
       </BrowserRouter>
     </>
