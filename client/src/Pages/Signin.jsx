@@ -27,7 +27,7 @@ const Signin = () => {
     }
   };
   return (
-    <section className="w-full h-[100vh] bg-blue-300 flex justify-center items-center">
+    <section className="w-full h-[100vh] bg-gradient-to-r from-blue-400 to-purple-500 flex justify-center items-center">
       <div className="w-72 bg-white  rounded-lg md:w-1/4 p-2">
         <Heading label={"Sing-in"} />
         <SubHeading label={"Enter Your Creditional to an create Account"} />

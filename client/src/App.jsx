@@ -6,6 +6,7 @@ import Dashboard from "./Pages/Dashboard";
 import Send from "./Pages/Send";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import PublicRoute from "./Components/PublicRoute";
+import Homepage from "./Pages/Homepage";
 const App = () => {
   return (
     <>
@@ -16,6 +17,14 @@ const App = () => {
             element={
               <PublicRoute>
                 <Signup />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <PublicRoute>
+                <Homepage />
               </PublicRoute>
             }
           />
